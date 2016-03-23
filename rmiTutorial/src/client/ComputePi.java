@@ -43,9 +43,12 @@ public class ComputePi {
         }
         try {
             String name = "Compute";
-            Registry registry = LocateRegistry.getRegistry(args[0]);
+            //Exporttiertes Objekt(ComputeEngine) ueber registry suchen
+            Registry registry = LocateRegistry.getRegistry(args[0],1234);
             Compute comp = (Compute) registry.lookup(name);
+            //Task erstellen
             Pi task = new Pi(Integer.parseInt(args[1]));
+            //Am Server ausfuehren
             BigDecimal pi = comp.executeTask(task);
             System.out.println(pi);
         } catch (Exception e) {

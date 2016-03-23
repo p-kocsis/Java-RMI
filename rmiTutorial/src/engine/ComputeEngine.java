@@ -52,11 +52,16 @@ public class ComputeEngine implements Compute {
             System.setSecurityManager(new SecurityManager());
         }
         try {
+
             String name = "Compute";
             Compute engine = new ComputeEngine();
+            //Stub mithilfe von dem UnicastRemoteObject erstellen und die implementierte
+            //Compute exporten(ueber ein Socket fuer den Client bereitstellen
             Compute stub =
                 (Compute) UnicastRemoteObject.exportObject(engine, 0);
-            Registry registry = LocateRegistry.createRegistry(0);
+            //Java Namensdienst auf Port 1234 starten
+            Registry registry = LocateRegistry.createRegistry(1234);
+            //Socket im Namensdienst unter "Compute" einbinden
             registry.rebind(name, stub);
             System.out.println("ComputeEngine bound");
         } catch (Exception e) {
